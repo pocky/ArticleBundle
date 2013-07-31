@@ -1,0 +1,23 @@
+{
+    "name": "black/article-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony BlackArticleBundle",
+    "keywords": ["Article"],
+    "homepage": "http://www.lablackroom.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexandre Balmes",
+            "email": "abalmes@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+        "black/common-bundle": "dev-master"
+    },
+    "autoload": {
+        "psr-0": { "Black\\Bundle\\ArticleBundle": "" }
+    },
+    "target-dir": "Black/Bundle/ArticleBundle"
+}
