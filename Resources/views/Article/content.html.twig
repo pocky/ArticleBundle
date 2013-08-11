@@ -6,6 +6,8 @@
     </p>
 
     {% autoescape false %}
-    {{ document.text }}
+    {{ document.articleSection }}
     {% endautoescape %}
+
+    {% include "BlackArticleBundle:Article:_info.html.twig" %}
 </section>

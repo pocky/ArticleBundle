@@ -5,28 +5,39 @@
     <div class="container">
 
         {% for document in documents %}
-            <section class="article article-{{ document.slug }} article-{{ document.id }} row">
+            <section class="article article-{{ document.slug }} article-{{ document.id }} row" itemscope itemtype="http://schema.org/Article">
 
-                <h1 class="">{{ document.name }}</h1>
+                <h4 class="" itemprop="name">
+                    <a href="{{ url('article_show', { slug: document.slug }, true) }}"
+                       title="{% trans with {'%name%': document.name } from "views" %}article.www.index.read.a.title{% endtrans %}"
+                       itemprop="url">
+                        {{ document.name }}
+                    </a>
+                </h4>
 
-                <div class="content ">
+                <div class="content" itemprop="{% if document.description %}description{% else %}articleSection{% endif %}">
                     {% if document.description %}
                         {{ document.description }}
                     {% else %}
                         {% autoescape false %}
-                        {{ document.text|striptags|truncate(240, false, '') }}
+                        {{ document.articleSection|striptags|truncate(240, false, '') }}
                         {% endautoescape %}
                     {% endif %}
                 </div>
 
-                <div class="read span12">
-                    <a href="{{ url('article_show', { slug: document.slug }, true) }}" title="{% trans with {'%name%': document.name } from "views" %}article.www.index.read.a.title{% endtrans %}">
-                        {% trans from "views" %}article.www.index.read.a.text{% endtrans %}
-                    </a>
-                </div>
+                <p><a href="{{ url('article_show', { slug: document.slug }, true) }}"
+                   title="{% trans with {'%name%': document.name } from "views" %}article.www.index.read.a.title{% endtrans %}"
+                   itemprop="url"
+                   class="btn">
+                    {% trans from "views" %}article.www.index.read.a.text{% endtrans %}
+                </a></p>
+
+                {% include 'BlackArticleBundle:Article:_info.html.twig' %}
 
             </section>
             <hr>
+        {% else %}
+            <p>Salut</p>
         {% endfor %}
 
     </div>

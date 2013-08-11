@@ -33,11 +33,6 @@ class ArticleProxy implements ProxyInterface
     protected $manager;
 
     /**
-     * @var \Black\Bundle\SeoBundle\Model\SeoInterface
-     */
-    protected $seo;
-
-    /**
      * @var \Symfony\Component\Security\Core\SecurityContext
      */
     protected $context;
@@ -59,15 +54,13 @@ class ArticleProxy implements ProxyInterface
 
     /**
      * @param ArticleManagerInterface $manager
-     * @param SeoInterface         $seo
      * @param SecurityContext      $context
      * @param Request              $request
      * @param Kernel               $kernel
      */
-    public function __construct(ArticleManagerInterface $manager, SeoInterface $seo, SecurityContext $context, Request $request, Kernel $kernel)
+    public function __construct(ArticleManagerInterface $manager, SecurityContext $context, Request $request, Kernel $kernel)
     {
         $this->manager = $manager;
-        $this->seo      = $seo;
         $this->context  = $context;
         $this->request  = $request;
         $this->kernel   = $kernel;
@@ -111,28 +104,10 @@ class ArticleProxy implements ProxyInterface
             }
         }
 
-        $this->formatSeo($object);
-
         return array(
             'object'    => $object,
             'response'  => $response
         );
-    }
-
-    /**
-     * @param Object $object
-     */
-    protected function formatSeo($object)
-    {
-        if ($seo = $this->getSeo()) {
-            $seo
-                ->setTitle($object->getSeo()->getTitle())
-                ->setDescription($object->getSeo()->getDescription());
-
-            if ($object->getSeo()->getKeywords()) {
-                $seo->setKeywords($object->getSeo()->getKeywords());
-            }
-        }
     }
 
     /**
@@ -200,14 +175,6 @@ class ArticleProxy implements ProxyInterface
     private function getManager()
     {
         return $this->manager;
-    }
-
-    /**
-     * @return SeoInterface
-     */
-    private function getSeo()
-    {
-        return $this->seo;
     }
 
     /**

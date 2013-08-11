@@ -38,7 +38,7 @@ article:
     index:
       article:
         text: Articles
-    
+
     new:
       article:
         text: Nouvelle article
@@ -66,23 +66,24 @@ article:
     article:
       not:
         found:
-          La article demandée n'a pas été trouvée
+          L'article demandé n'a pas été trouvé
     index:
       read:
         a:
           text: Lire la suite
           title: Lire la suite de %name%
     
-    memuArticles:
-      content:
-        a:
-          title: Accéder au contenu de la article %name%
-      error:
-        text: Il n'y a pas de articles.
-    
     recentArticles:
       content:
         a:
-          title: Accéder au contenu de la article %name%
+          title: Accéder au contenu de l'article %name%
       error:
-        text: Il n'y a pas de articles.
+        text: Il n'y a pas d'articles.
+
+    info:
+      author:
+        title: Auteur : 
+      blogCategories:
+        title : Catégories :
+      keywords:
+        title: Mots-clés :
