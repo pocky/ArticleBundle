@@ -81,6 +81,54 @@ class ArticleRepository extends DocumentRepository
     }
 
     /**
+     * @param $author
+     * @param $status
+     * @return array|bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
+     */
+    public function getArticlesByAuthor($author, $status)
+    {
+        $qb = $this->getQueryBuilder()
+            ->field('author')->equals($author)
+            ->field('status')->equals($status)
+            ->sort('updatedAt', 'desc')
+            ->getQuery();
+
+        return $qb->execute();
+    }
+
+    /**
+     * @param $blogCategory
+     * @param $status
+     * @return array|bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
+     */
+    public function getArticlesByBlogCategory($blogCategory, $status)
+    {
+        $qb = $this->getQueryBuilder()
+            ->field('blogCategories.name')->equals($blogCategory)
+            ->field('status')->equals($status)
+            ->sort('updatedAt', 'desc')
+            ->getQuery();
+
+        return $qb->execute();
+    }
+
+    /**
+     * @param $keyword
+     * @param $status
+     * @return array|bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
+     */
+    public function getArticlesByKeyword($keyword, $status)
+    {
+        $qb = $this->getQueryBuilder()
+            ->field('keywords.name')->equals($keyword)
+            ->field('status')->equals($status)
+            ->sort('updatedAt', 'desc')
+            ->getQuery();
+
+        return $qb->execute();
+    }
+
+    /**
      * @param      $status
      * @param null $limit
      * @return array|bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
@@ -117,21 +165,6 @@ class ArticleRepository extends DocumentRepository
             ->addOr($qb->expr()->field('description')->equals($text))
             ->getQuery()
         ;
-
-        return $qb->execute();
-    }
-
-    /**
-     * @param $author
-     *
-     * @return array|bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
-     */
-    public function getArticlesByAuthor($author)
-    {
-        $qb = $this->getQueryBuilder()
-            ->field('author')->equals($author)
-            ->sort('updatedAt', 'desc')
-            ->getQuery();
 
         return $qb->execute();
     }

@@ -217,11 +217,34 @@ class ArticleManager implements ArticleManagerInterface
 
     /**
      * @param $author
+     * @param string $status
      *
      * @return mixed
      */
-    public function findArticlesByAuthor($author)
+    public function findArticlesByAuthor($author, $status = 'publish')
     {
-        return $this->getRepository()->getArticlesByAuthor($author);
+        return $this->getRepository()->getArticlesByAuthor($author, $status);
+    }
+
+    /**
+     * @param $blogCategory
+     * @param string $status
+     *
+     * @return mixed
+     */
+    public function findArticlesByBlogCategory($blogCategory, $status = 'publish')
+    {
+        return $this->getRepository()->getArticlesByBlogCategory($blogCategory, $status);
+    }
+
+    /**
+     * @param $keyword
+     * @param string $status
+     *
+     * @return mixed
+     */
+    public function findArticlesByKeyword($keyword, $status = 'publish')
+    {
+        return $this->getRepository()->getArticlesByKeyword($keyword, $status);
     }
 }

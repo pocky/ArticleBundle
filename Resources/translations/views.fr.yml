@@ -72,6 +72,8 @@ article:
         a:
           text: Lire la suite
           title: Lire la suite de %name%
+      no:
+        results: Il n'y a pas de résultats
     
     recentArticles:
       content:

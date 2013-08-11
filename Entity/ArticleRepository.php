@@ -108,6 +108,23 @@ class ArticleRepository extends EntityRepository
     }
 
     /**
+     * @param $author
+     * @param $status
+     * @return array|bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
+     */
+    public function getArticlesByAuthor($author, $status)
+    {
+        $qb = $this->getQueryBuilder()
+            ->where('p.author = :author AND p.status = :status')
+            ->setParameter('author', $author)
+            ->setParameter('status', $status)
+            ->sort('updatedAt', 'desc')
+            ->getQuery();
+
+        return $qb->execute();
+    }
+
+    /**
      * @param $text
      *
      * @return mixed

@@ -34,7 +34,7 @@ class ArticleController extends Controller
      * index of Articles
      *
      * @Method("GET")
-     * @Route("/all.html", name="articles")
+     * @Route("s.html", name="articles")
      * @Template()
      * 
      * @return array
@@ -48,6 +48,69 @@ class ArticleController extends Controller
         if (!$documents) {
             throw $this->createNotFoundException('article.not.found');
         }
+
+        return array(
+            'documents' => $documents,
+        );
+    }
+
+    /**
+     * Articles for Author
+     *
+     * @Method("GET")
+     * @Route("s/author/{author}.html", name="article_author")
+     * @Template()
+     *
+     * @param $author
+     * @return array
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function authorAction($author)
+    {
+        $documentManager    = $this->getManager();
+        $documents          = $documentManager->findArticlesByAuthor($author);
+
+        return array(
+            'documents' => $documents,
+        );
+    }
+
+    /**
+     * Articles for Category
+     *
+     * @Method("GET")
+     * @Route("s/category/{blogCategory}.html", name="article_category")
+     * @Template()
+     *
+     * @param $blogCategory
+     * @return array
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function categoryAction($blogCategory)
+    {
+        $documentManager    = $this->getManager();
+        $documents          = $documentManager->findArticlesByBlogCategory($blogCategory);
+
+        return array(
+            'documents' => $documents,
+        );
+    }
+
+    /**
+     * Articles for keyword
+     *
+     * @Method("GET")
+     * @Route("s/keyword/{keyword}.html", name="article_keyword")
+     * @Template()
+     *
+     * @param $keyword
+     * @return array
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    public function keywordAction($keyword)
+    {
+        $documentManager    = $this->getManager();
+        $documents          = $documentManager->findArticlesByKeyword($keyword);
 
         return array(
             'documents' => $documents,
@@ -83,7 +146,7 @@ class ArticleController extends Controller
      * @param integer $max
      * 
      * @Method("GET")
-     * @Route("/recent/{max}", name="_articles_recent")
+     * @Route("s/recent/{max}", name="_articles_recent")
      * @Template()
      * 
      * @return Template
