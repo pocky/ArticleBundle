@@ -50,10 +50,20 @@ abstract class Article extends AbstractArticle
     protected $articleSection;
 
     /**
+     * @ODM\Collection
+     */
+    protected $blogCategories;
+
+    /**
      * @ODM\Date
      * @Gedmo\Timestampable(on="create")
      */
     protected $datePublished;
+
+    /**
+     * @ODM\Collection
+     */
+    protected $keywords;
 
     /**
      * @ODM\String

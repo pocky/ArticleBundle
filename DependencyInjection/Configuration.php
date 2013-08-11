@@ -41,6 +41,7 @@ class Configuration implements ConfigurationInterface
             ->end();
 
         $this->addArticleSection($rootNode);
+        $this->addProxySection($rootNode);
 
         return $treeBuilder;
     }
@@ -80,5 +81,24 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
             ->end();
+    }
+
+    /**
+     * @param ArrayNodeDefinition $node
+     */
+    private function addProxySection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('proxy')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                        ->children()
+                            ->scalarNode('class')->defaultValue('Black\\Bundle\\PageBundle\\Proxy\\PageProxy')->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
     }
 }

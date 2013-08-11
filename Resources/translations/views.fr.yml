@@ -1,0 +1,88 @@
+article:
+  admin:
+    actions:
+      text: Actions
+      back:
+        text: Retour
+      
+    breadLine:
+      article:
+        breadcrumb:
+          a:
+            text: Gérer les articles
+            title: Gérer les articles
+        new:
+          text: Créer une article
+      shortcut:
+        text: Raccourci
+          
+    contentTop:
+      config:
+        article:
+          text: Configurations des articles
+      new:
+        text: Créer une article
+      edit:
+        text: Editer une article
+      article:
+        text: Articles
+          
+    edit:
+      article:
+        text: Modifier une article
+          
+    fieldset:
+      config:
+        text: Configuration des articles
+    
+    index:
+      article:
+        text: Articles
+    
+    new:
+      article:
+        text: Nouvelle article
+    
+    sidebar:
+      config:
+        articles:
+          a:
+            text: Paramètres des articles
+            title: Paramètres des articles
+      articles:
+        text: Articles
+        a:
+          text: Liste des articles
+          title: Voir vos articles
+          
+    article:
+      actions:
+        text: Actions
+
+    js:
+      remove:
+        text: Enlever
+  www:
+    article:
+      not:
+        found:
+          La article demandée n'a pas été trouvée
+    index:
+      read:
+        a:
+          text: Lire la suite
+          title: Lire la suite de %name%
+    
+    memuArticles:
+      content:
+        a:
+          title: Accéder au contenu de la article %name%
+      error:
+        text: Il n'y a pas de articles.
+    
+    recentArticles:
+      content:
+        a:
+          title: Accéder au contenu de la article %name%
+      error:
+        text: Il n'y a pas de articles.

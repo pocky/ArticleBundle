@@ -22,9 +22,7 @@
             <argument type="service" id="session" />
         </service>
 
-        <service id="black_article.article.form.enabled_list" class="%black_article.article.form.enabled_list%" public="false">
-            <argument type="service" id="black_article.manager.article" />
-        </service>
+        <service id="black_article.article.form.enabled_list" class="%black_article.article.form.enabled_list%" public="false" />
         
         <service id="black_article.article.form.enabled_type" class="Black\Bundle\CommonBundle\Form\Type\CustomChoiceListType" public="true">
             <argument type="service" id="black_article.article.form.enabled_list" />
@@ -32,7 +30,7 @@
             <tag name="form.type" alias="black_article_choice_list_enabled" />
         </service>
 
-        <service id="black_article.article.form.status_list" class="%black_article.article.form.status_list%" public="false"/>
+        <service id="black_article.article.form.status_list" class="%black_article.article.form.status_list%" public="false" />
         
         <service id="black_article.article.form.status_type" class="Black\Bundle\CommonBundle\Form\Type\CustomChoiceListType" public="true">
             <argument type="service" id="black_article.article.form.status_list" />

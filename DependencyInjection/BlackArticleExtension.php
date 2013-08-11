@@ -52,6 +52,10 @@ class BlackArticleExtension extends Extension
         if (!empty($config['article'])) {
             $this->loadArticle($config['article'], $container, $loader);
         }
+
+        if (!empty($config['proxy'])) {
+            $this->loadProxy($config['proxy'], $container, $loader);
+        }
     }
 
     private function loadArticle(array $config, ContainerBuilder $container, XmlFileLoader $loader)
@@ -65,6 +69,26 @@ class BlackArticleExtension extends Extension
             $container,
             array(
                 'form'  => 'black_article.article.form.%s',
+            )
+        );
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param XmlFileLoader    $loader
+     */
+    private function loadProxy(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    {
+        foreach (array('proxy') as $basename) {
+            $loader->load(sprintf('%s.xml', $basename));
+        }
+
+        $this->remapParametersNamespaces(
+            $config,
+            $container,
+            array(
+                'proxy'  => 'black_article.proxy.%s',
             )
         );
     }

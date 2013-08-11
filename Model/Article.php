@@ -36,6 +36,11 @@ abstract class Article implements ArticleInterface
     /**
      * @var
      */
+    protected $blogCategories;
+
+    /**
+     * @var
+     */
     protected $comments;
 
     /**
@@ -72,6 +77,11 @@ abstract class Article implements ArticleInterface
      * @var
      */
     protected $discussionUrl;
+
+    /**
+     * @var
+     */
+    protected $enabled;
 
     /**
      * @var
@@ -116,6 +126,11 @@ abstract class Article implements ArticleInterface
     /**
      * @var
      */
+    protected $status;
+
+    /**
+     * @var
+     */
     protected $version;
 
     /**
@@ -129,15 +144,11 @@ abstract class Article implements ArticleInterface
     protected $articleSection;
 
     /**
-     * Constructor
+     * @return mixed
      */
-    public function __construct()
+    public function getId()
     {
-        $this->comments         = new ArrayCollection();
-        $this->contributors     = new ArrayCollection();
-        $this->isBasedOnUrls    = new ArrayCollection();
-        $this->keywords         = new ArrayCollection();
-        $this->mentions         = new ArrayCollection();
+        return $this->id;
     }
 
     /**
@@ -178,6 +189,60 @@ abstract class Article implements ArticleInterface
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * @param array $blogCategories
+     * @return $this
+     */
+    public function setBlogCategories(array $blogCategories)
+    {
+        foreach ($blogCategories as $blogCategory) {
+            $this->setBlogCategory($blogCategory);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param $blogCategory
+     * @return $this
+     */
+    public function setBlogCategory($blogCategory)
+    {
+        $this->blogCategories[] = $blogCategory;
+
+        return $this;
+    }
+
+    /**
+     * @param $blogCategory
+     * @return $this
+     */
+    public function addBlogCategory($blogCategory)
+    {
+        $this->blogCategories[] = $blogCategory;
+
+        return $this;
+    }
+
+    /**
+     * @param $blogCategory
+     * @return $this
+     */
+    public function removeBlogCategory($blogCategory)
+    {
+        unset($this->blogCategories[array_search($blogCategory, $this->blogCategories)]);
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBlogCategories()
+    {
+        return $this->blogCategories;
     }
 
     /**
@@ -534,30 +599,35 @@ abstract class Article implements ArticleInterface
 
     /**
      * @param $keyword
+     * @return $this
      */
     public function setKeyword($keyword)
     {
-        $this->addKeyword($keyword);
+        $this->keywords[] = $keyword;
+
+        return $this;
     }
 
     /**
      * @param $keyword
+     * @return $this
      */
     public function addKeyword($keyword)
     {
-        if (!$this->keywords->contains($keyword)) {
-            $this->keywords->add($keyword);
-        }
+        $this->keywords[] = $keyword;
+
+        return $this;
     }
 
     /**
      * @param $keyword
+     * @return $this
      */
     public function removeKeyword($keyword)
     {
-        if ($this->keywords->contains($keyword)) {
-            $this->keywords->removeElement($keyword);
-        }
+        unset($this->keywords[array_search($keyword, $this->keywords)]);
+
+        return $this;
     }
 
     /**
@@ -738,5 +808,37 @@ abstract class Article implements ArticleInterface
     public function getArticleSection()
     {
         return $this->articleSection;
+    }
+
+    /**
+     * @param mixed $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

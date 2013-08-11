@@ -1,0 +1,75 @@
+{% block script %}
+<script type="text/javascript">
+    {% block js %}
+    jQuery(document).ready(function() {
+        var blogCategoriesCount = {{ form.blogCategories|length }};
+        var keywordsCount = {{ form.keywords|length }};
+
+        jQuery('#black_article_article_form_blogCategories').children('.formRow').each(function() {
+            addBlogCategorymDeleteLink($(this));
+        });
+
+        jQuery('#black_article_article_form_keywords').children('.formRow').each(function() {
+            addKeywordDeleteLink($(this));
+        });
+
+        jQuery('#add-another-category').click(function() {
+            var blogCategoryList = jQuery('#black_article_article_form_blogCategories');
+
+            var newWidget = blogCategoryList.attr('data-prototype');
+            newWidget = newWidget.replace(/__name__/g, blogCategoriesCount);
+            blogCategoriesCount++;
+
+            var newDiv = jQuery('<div class="formRow noBorderB"></div>').html(newWidget);
+            addBlogCategorymDeleteLink(newDiv);
+            newDiv.appendTo(blogCategoryList);
+            JQueryUIApplyStyle(newDiv);
+            return false;
+        });
+
+        jQuery('#add-another-keyword').click(function() {
+            var keywordList = jQuery('#black_article_article_form_keywords');
+
+            var newWidget = keywordList.attr('data-prototype');
+            newWidget = newWidget.replace(/__name__/g, keywordsCount);
+            keywordsCount++;
+
+            var newDiv = jQuery('<div class="formRow noBorderB"></div>').html(newWidget);
+            addKeywordDeleteLink(newDiv);
+            newDiv.appendTo(keywordList);
+            JQueryUIApplyStyle(newDiv);
+            return false;
+        });
+
+        jQuery('#slug').slugify('#black_article_article_form_name')
+
+        function addBlogCategorymDeleteLink($tagFormDiv) {
+            var $removeFormA = $('<a href="#" class="add buttonS bRed mt10">{% trans from "views" %}article.admin.js.remove.text{% endtrans %}</a>');
+            $tagFormDiv.first('.formRow .grid9').append($removeFormA);
+
+            $removeFormA.on('click', function(e) {
+                blogCategoriesCount--;
+                e.preventDefault();
+                $tagFormDiv.remove();
+            });
+        }
+
+        function addKeywordDeleteLink($tagFormDiv) {
+            var $removeFormA = $('<a href="#" class="add buttonS bRed mt10">{% trans from "views" %}article.admin.js.remove.text{% endtrans %}</a>');
+            $tagFormDiv.first('.formRow .grid9').append($removeFormA);
+
+            $removeFormA.on('click', function(e) {
+                keywordsCount--;
+                e.preventDefault();
+                $tagFormDiv.remove();
+            });
+        }
+        
+        function JQueryUIApplyStyle($newDiv) {
+            $newDiv.find("select, .check, .check :checkbox, input:radio, input:file").uniform();
+        }
+    });
+
+    {% endblock %}
+</script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+
+        {% for document in documents %}
+            <section class="article article-{{ document.slug }} article-{{ document.id }} row">
+
+                <h1 class="">{{ document.name }}</h1>
+
+                <div class="content ">
+                    {% if document.description %}
+                        {{ document.description }}
+                    {% else %}
+                        {% autoescape false %}
+                        {{ document.text|striptags|truncate(240, false, '') }}
+                        {% endautoescape %}
+                    {% endif %}
+                </div>
+
+                <div class="read span12">
+                    <a href="{{ url('article_show', { slug: document.slug }, true) }}" title="{% trans with {'%name%': document.name } from "views" %}article.www.index.read.a.title{% endtrans %}">
+                        {% trans from "views" %}article.www.index.read.a.text{% endtrans %}
+                    </a>
+                </div>
+
+            </section>
+            <hr>
+        {% endfor %}
+
+    </div>
+{% endblock body %}

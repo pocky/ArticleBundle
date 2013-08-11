@@ -1,0 +1,58 @@
+#article:
+#    not:
+#        found: Il n'y a pas de articles disponibles à cette adresse
+#    menu:
+#        title: Accéder au contenu de la article %name%
+#    link:
+#        title: Lire la suite de %name%
+#        read: Lire la suite
+#    admin:
+#        title: Articles
+#        slug: "Future url pour votre article :"
+#        breadcrumb: Voir vos articles
+#        new: Créer une article
+#        nav:
+#            title: Voir vos articles
+#        edit:
+#            title: Editer une article
+#        form:
+#            general: General
+#            content: Contenu
+#            options: Informations optionnelles
+#            settings: Propriétés
+#            name: Titre
+#            slug: Permalien
+#            description: Description
+#            text: Contenu
+#            author: Auteur
+#            image: Illustration
+#            datePublished: Date de publication
+#            status:
+#                label: Statut de publication
+#                empty: Choisir une valeur
+#                choices:
+#                    draft: Brouillon
+#                    publish: Publié
+#            enabled:
+#                label: Visibilité de la article
+#                empty: Choisir une valeur
+#                choices:
+#                    public: Publique
+#                    private: Privée
+#                    protected: Protégée
+#            item:
+#                other: Autre
+#
+#        config:
+#            nav:
+#                article:
+#                    title: Accéder à vos paramètres des articles
+#                    a: Paramètres des articles
+#            form:
+#                article:
+#                    title: Paramètres des articles
+#                    protected:
+#                        label: Activer la protection des articles
+#                        empty: Choisir une valeur
+#                        yes: Oui
+#                        no: Non (conseillé)

@@ -49,7 +49,8 @@ class ArticleType extends AbstractType
                 )
             )
             ->add('alternativeHeadline', 'text', array(
-                    'label'         => 'article.admin.article.alternativeHeadline.text'
+                    'label'         => 'article.admin.article.alternativeHeadline.text',
+                    'required'      => false
                 )
             )
             ->add('slug', 'text', array(
@@ -67,6 +68,40 @@ class ArticleType extends AbstractType
                     'filebrowser_image_browse_url'  => array(
                         'route'            => 'elfinder',
                         'route_parameters' => array(),
+                    ),
+                )
+            )
+
+            ->add('blogCategories', 'collection', array(
+                    'type'          => 'text',
+                    'label'         => 'article.admin.article.blogCategories.text',
+                    'allow_add'     => true,
+                    'allow_delete'  => true,
+                    'required'      => false,
+                    'options'       => array(
+                        'label'     => 'article.admin.article.blogCategories.category.text',
+                        'required'  => false
+                    ),
+                    'attr'          => array(
+                        'class' => 'blogCategories-collection',
+                        'add'   => 'add-another-category'
+                    ),
+                )
+            )
+
+            ->add('keywords', 'collection', array(
+                    'type'          => 'text',
+                    'label'         => 'article.admin.article.keywords.text',
+                    'allow_add'     => true,
+                    'allow_delete'  => true,
+                    'required'      => false,
+                    'options'       => array(
+                        'label'     => 'article.admin.article.keywords.keyword.text',
+                        'required'  => false
+                    ),
+                    'attr'          => array(
+                        'class' => 'keywords-collection',
+                        'add'   => 'add-another-keyword'
                     ),
                 )
             )
