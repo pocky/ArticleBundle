@@ -50,7 +50,7 @@ abstract class Article extends AbstractArticle
     protected $articleSection;
 
     /**
-     * @ODM\Collection
+     * @ODM\EmbedMany(targetDocument="Black\Bundle\ArticleBundle\Document\Item")
      */
     protected $blogCategories;
 
@@ -61,7 +61,7 @@ abstract class Article extends AbstractArticle
     protected $datePublished;
 
     /**
-     * @ODM\Collection
+     * @ODM\EmbedMany(targetDocument="Black\Bundle\ArticleBundle\Document\Item")
      */
     protected $keywords;
 

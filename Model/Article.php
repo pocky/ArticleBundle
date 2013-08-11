@@ -144,6 +144,15 @@ abstract class Article implements ArticleInterface
     protected $articleSection;
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->blogCategories   = new ArrayCollection();
+        $this->keywords         = new ArrayCollection();
+    }
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -192,10 +201,10 @@ abstract class Article implements ArticleInterface
     }
 
     /**
-     * @param array $blogCategories
+     * @param ArrayCollection $blogCategories
      * @return $this
      */
-    public function setBlogCategories(array $blogCategories)
+    public function setBlogCategories(ArrayCollection $blogCategories)
     {
         foreach ($blogCategories as $blogCategory) {
             $this->setBlogCategory($blogCategory);
@@ -210,7 +219,7 @@ abstract class Article implements ArticleInterface
      */
     public function setBlogCategory($blogCategory)
     {
-        $this->blogCategories[] = $blogCategory;
+        $this->addBlogCategory($blogCategory);
 
         return $this;
     }
@@ -221,7 +230,9 @@ abstract class Article implements ArticleInterface
      */
     public function addBlogCategory($blogCategory)
     {
-        $this->blogCategories[] = $blogCategory;
+        if (!$this->blogCategories->contains($blogCategory)) {
+            $this->blogCategories->add($blogCategory);
+        }
 
         return $this;
     }
@@ -232,7 +243,9 @@ abstract class Article implements ArticleInterface
      */
     public function removeBlogCategory($blogCategory)
     {
-        unset($this->blogCategories[array_search($blogCategory, $this->blogCategories)]);
+        if ($this->blogCategories->contains($blogCategory)) {
+            $this->blogCategories->removeElement($blogCategory);
+        }
 
         return $this;
     }
@@ -585,7 +598,6 @@ abstract class Article implements ArticleInterface
 
     /**
      * @param $keywords
-     *
      * @return $this
      */
     public function setKeywords($keywords)
@@ -603,7 +615,7 @@ abstract class Article implements ArticleInterface
      */
     public function setKeyword($keyword)
     {
-        $this->keywords[] = $keyword;
+        $this->addKeyword($keyword);
 
         return $this;
     }
@@ -614,7 +626,9 @@ abstract class Article implements ArticleInterface
      */
     public function addKeyword($keyword)
     {
-        $this->keywords[] = $keyword;
+        if (!$this->keywords->contains($keyword)) {
+            $this->keywords->add($keyword);
+        }
 
         return $this;
     }
@@ -625,7 +639,9 @@ abstract class Article implements ArticleInterface
      */
     public function removeKeyword($keyword)
     {
-        unset($this->keywords[array_search($keyword, $this->keywords)]);
+        if ($this->keywords->contains($keyword)) {
+            $this->keywords->removeElement($keyword);
+        }
 
         return $this;
     }

@@ -73,15 +73,11 @@ class ArticleType extends AbstractType
             )
 
             ->add('blogCategories', 'collection', array(
-                    'type'          => 'text',
+                    'type'          => 'black_article_item',
                     'label'         => 'article.admin.article.blogCategories.text',
                     'allow_add'     => true,
                     'allow_delete'  => true,
                     'required'      => false,
-                    'options'       => array(
-                        'label'     => 'article.admin.article.blogCategories.category.text',
-                        'required'  => false
-                    ),
                     'attr'          => array(
                         'class' => 'blogCategories-collection',
                         'add'   => 'add-another-category'
@@ -90,15 +86,11 @@ class ArticleType extends AbstractType
             )
 
             ->add('keywords', 'collection', array(
-                    'type'          => 'text',
+                    'type'          => 'black_article_item',
                     'label'         => 'article.admin.article.keywords.text',
                     'allow_add'     => true,
                     'allow_delete'  => true,
                     'required'      => false,
-                    'options'       => array(
-                        'label'     => 'article.admin.article.keywords.keyword.text',
-                        'required'  => false
-                    ),
                     'attr'          => array(
                         'class' => 'keywords-collection',
                         'add'   => 'add-another-keyword'

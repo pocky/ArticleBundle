@@ -37,6 +37,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
 
                 ->scalarNode('article_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('item_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('article_manager')->defaultValue('Black\\Bundle\\ArticleBundle\\Doctrine\\ArticleManager')->end()
             ->end();
 
@@ -65,6 +66,9 @@ class Configuration implements ConfigurationInterface
                                 ->end()
                                 ->scalarNode('type')
                                     ->defaultValue('Black\\Bundle\\ArticleBundle\\Form\\Type\\ArticleType')
+                                ->end()
+                                ->scalarNode('item_type')
+                                    ->defaultValue('Black\\Bundle\\ArticleBundle\\Form\\Type\\ItemType')
                                 ->end()
                                 ->scalarNode('handler')
                                     ->defaultValue('Black\\Bundle\\ArticleBundle\\Form\\Handler\\ArticleFormHandler')

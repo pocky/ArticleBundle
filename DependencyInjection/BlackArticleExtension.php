@@ -43,8 +43,9 @@ class BlackArticleExtension extends Extension
             $container,
             array(
                 ''      => array(
-                    'article_class'          => 'black_article.article.model.class',
-                    'article_manager'        => 'black_article.article.manager',
+                    'article_class'             => 'black_article.article.model.class',
+                    'item_class'                => 'black_article.article.model.item_class',
+                    'article_manager'           => 'black_article.article.manager',
                 )
             )
         );

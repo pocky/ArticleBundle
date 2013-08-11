@@ -11,6 +11,10 @@ article:
         submit:
           value: Supprimer
 
+    item:
+      name:
+        text: Item
+
     article:
       general:
         text: Général
@@ -20,12 +24,8 @@ article:
         text: Contenu
       blogCategories:
         text: Catégories
-        category:
-          text: Catégorie
       keywords:
         text: Mots-clés
-        keyword:
-          text: Mot-clé
       content:
         text: Article
       options:
