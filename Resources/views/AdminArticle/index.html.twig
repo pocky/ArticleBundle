@@ -1,0 +1,17 @@
+{% extends 'BlackArticleBundle:AdminArticle:base.html.twig' %}
+
+{% block article_content %}
+<form id="validate" class="main grid9" action="{{ path('admin_article_batch') }}" method="post">
+    <div class="fluid">
+        <div class="widget check">
+            <div class="whead">
+                <span class="titleIcon"><input type="checkbox" id="titleCheck" name="titleCheck" /></span>
+                <h6>{% trans from "views" %}article.admin.index.article.text{% endtrans %}</h6>
+                <div class="clear"></div>
+            </div>
+
+            {% include 'BlackArticleBundle:AdminArticle:table.html.twig' with {'keys': keys, 'csrf': csrf} %}
+        </div>
+    </div>
+</form>
+{% endblock %}

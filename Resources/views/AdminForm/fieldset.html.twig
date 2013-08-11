@@ -1,0 +1,87 @@
+{% form_theme form 'BlackAdminBundle:AdminForm:fields.html.twig' %}
+{% set title = title is defined ? title : "Create a new thing" %}
+
+<fieldset class="grid9">
+    <div class="widget">
+        <div class="whead"><h6>{% trans from "form" %}article.admin.article.general.text{% endtrans %}</h6><div class="clear"></div></div>
+        {{ form_row(form.name) }}
+        {{ form_row(form.alternativeHeadline) }}
+        <div class="formRow">
+            <div class="grid2">{{ form_label(form.slug) }}</div>
+            <div class="grid10">
+                {{ form_widget(form.slug) }}
+                {{ form_errors(form.slug) }}
+                {% if(document.slug) %}
+                    <p>
+                        <b>{{ form.slug.vars.label|trans({}, "form") }}</b>
+                        {{ black.site_url is defined ? black.site_url }}/article/<span id="slug">{{ document.slug }}</span>.html
+                    </p>
+                {% else %}
+                    <p>
+                        <b>{{ form.slug.vars.label|trans({}, "form") }}</b>
+                        {{ black.site_url is defined ? black.site_url }}/article/<span id="slug">_______</span>.html
+                    </p>
+                {% endif %}
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div class="widget">
+        <div class="whead"><h6>{% trans from "form" %}article.admin.article.content.text{% endtrans %}</h6><div class="clear"></div></div>
+        {{ form_row(form.description) }}
+        {{ form_row(form.articleSection) }}
+
+        {{ form_row(form.blogCategories) }}
+        {{ form_row(form.keywords) }}
+    </div>
+
+</fieldset>
+
+<fieldset class="grid3">
+    <div class="widget">
+        <div class="whead"><h6>{% trans from "form" %}page.admin.page.settings.text{% endtrans %}</h6><div class="clear"></div></div>
+
+        <div class="formRow">
+            <div class="grid4">{{ form_label(form.author) }}</div>
+            <div class="grid8">
+                {{ form_widget(form.author) }}
+                {{ form_errors(form.author) }}
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="formRow">
+            <div class="grid4">{{ form_label(form.status) }}</div>
+            <div class="grid8">
+                {{ form_widget(form.status) }}
+                {{ form_errors(form.status) }}
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="formRow">
+            <div class="grid4">{{ form_label(form.enabled) }}</div>
+            <div class="grid8">
+                {{ form_widget(form.enabled) }}
+                {{ form_errors(form.enabled) }}
+            </div>
+            <div class="clear"></div>
+        </div>
+
+
+
+        <div class="formRow">
+            <div class="grid4">{{ form_label(form.datePublished) }}</div>
+            <div class="grid8">
+                {{ form_widget(form.datePublished) }}
+                {{ form_errors(form.datePublished) }}
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        {{ form_rest(form) }}
+    </div>
+</fieldset>
+
+{% include 'BlackArticleBundle:AdminArticle:js.html.twig' %}

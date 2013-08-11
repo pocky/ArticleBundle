@@ -1,0 +1,13 @@
+<section class="row">
+    <h1>{{ document.name }}</h1>
+
+    <p class="lead">
+        <em>{{ document.description }}</em>
+    </p>
+
+    {% autoescape false %}
+    {{ document.articleSection }}
+    {% endautoescape %}
+
+    {% include "BlackArticleBundle:Article:_info.html.twig" %}
+</section>

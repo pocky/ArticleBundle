@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="span12">
+        <p>
+            {% if document.author %}<i class="icon-user"></i> {% trans from "views" %}article.www.info.author.title{% endtrans %}
+                <a href="{{ url('article_author', { author: document.author }, true) }}" itemprop="author">{{ document.author }}</a> |{% endif %}
+            <i class="icon-calendar"></i> <span itemprop="datePublished">{{ document.datePublished|format_date }}</span>
+
+            {% if document.blogCategories %}
+                | <i class="icon-tags"></i> {% trans from "views" %}article.www.info.blogCategories.title{% endtrans %}
+                {% for category in document.blogCategories %}
+                    <a href="{{ url('article_category', { blogCategory: category.name }, true) }}"><span class="label label-info" itemprop="keyword">{{ category.name }}</span></a>
+                {% endfor %}
+
+            {% endif %}
+
+            {% if document.keywords %}
+                | <i class="icon-tags"></i> {% trans from "views" %}article.www.info.keywords.title{% endtrans %}
+                {% for keyword in document.keywords %}
+                    <a href="{{ url('article_keyword', { keyword: keyword.name }, true) }}"><span class="label label-info" itemprop="keyword">{{ keyword.name }}</span></a>
+                {% endfor %}
+            {% endif %}
+
+        </p>
+    </div>
+</div>
