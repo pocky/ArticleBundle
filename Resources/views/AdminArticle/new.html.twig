@@ -1,0 +1,16 @@
+{% extends 'BlackArticleBundle:AdminArticle:base.html.twig' %}
+{% block content_top %}
+    {% include 'BlackAdminBundle:Admin:contentTop.html.twig' with {'title': "article.admin.contentTop.new.text"} %}
+{% endblock %}
+{% block article_content %}
+<div class="fluid">
+
+    <form id="validate" class="main" action="{{ path(admin_new) }}"  method="post" {{ form_enctype(form) }}>
+
+        {% include 'BlackArticleBundle:AdminForm:fieldset.html.twig' with {'form': form, 'title': 'article.admin.new.article.txt'} %}
+
+        {% include 'BlackAdminBundle:AdminForm:actions.html.twig' %}
+    </form>
+
+</div>
+{% endblock %}
