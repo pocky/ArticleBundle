@@ -62,7 +62,7 @@ article:
           draft: Brouillon
           publish: Publié
       enabled:
-        text: Visibilité de la article
+        text: Visibilité de l'article
         empty: Choisir une valeur
         choice:
           public: Publique

@@ -1,13 +1,17 @@
 <section class="row">
-    <h1>{{ document.name }}</h1>
+    <div class="span12">
+        <h1 itemprop="name">{{ document.name }}</h1>
 
-    <p class="lead">
-        <em>{{ document.description }}</em>
-    </p>
+        <p class="lead">
+            <em>{{ document.description }}</em>
+        </p>
 
-    {% autoescape false %}
-    {{ document.articleSection }}
-    {% endautoescape %}
+        {% autoescape false %}
+        <div itempprop="articleSection">
+            {{ document.articleSection }}
+        </div>
+        {% endautoescape %}
 
-    {% include "BlackArticleBundle:Article:_info.html.twig" %}
+        {% include "BlackArticleBundle:Article:_info.html.twig" %}
+    </div>
 </section>

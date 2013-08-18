@@ -104,14 +104,14 @@ class ArticleType extends AbstractType
                 )
             )
             ->add('status', 'black_article_choice_list_status', array(
-                    'label'         => 'page.admin.page.status.text',
-                    'empty_value'   => 'page.admin.page.status.empty',
+                    'label'         => 'article.admin.article.status.text',
+                    'empty_value'   => 'article.admin.article.status.empty',
                     'required'      => true
                 )
             )
             ->add('enabled', 'black_article_choice_list_enabled', array(
-                    'label'         => 'page.admin.page.enabled.text',
-                    'empty_value'   => 'page.admin.page.enabled.empty',
+                    'label'         => 'article.admin.article.enabled.text',
+                    'empty_value'   => 'article.admin.article.enabled.empty',
                     'required'      => true
                 )
             )
@@ -127,8 +127,7 @@ class ArticleType extends AbstractType
                         'day' => 'article.admin.article.datePublished.choice.day.text'
                     )
                 )
-            )
-        ;
+            );
     }
 
     /**

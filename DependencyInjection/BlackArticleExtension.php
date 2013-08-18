@@ -43,6 +43,7 @@ class BlackArticleExtension extends Extension
             $container,
             array(
                 ''      => array(
+                    'db_driver'                 => 'black_article.db_driver',
                     'article_class'             => 'black_article.article.model.class',
                     'item_class'                => 'black_article.article.model.item_class',
                     'article_manager'           => 'black_article.article.manager',

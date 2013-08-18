@@ -171,6 +171,9 @@ class ArticleController extends Controller
         return $this->get('black_article.manager.article');
     }
 
+    /**
+     * @return object
+     */
     protected function getProxy()
     {
         return $this->get('black_article.proxy');
