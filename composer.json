@@ -14,8 +14,8 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0",
-        "black/common-bundle": "dev-master",
-        "sonata-project/intl-bundle": "dev-master"
+        "black/common-bundle": "@dev",
+        "sonata-project/intl-bundle": "@dev"
     },
     "autoload": {
         "psr-0": { "Black\\Bundle\\ArticleBundle": "" }
