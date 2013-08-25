@@ -68,7 +68,11 @@ class ArticleType extends AbstractType
                 )
             )
             ->add('articleSection', 'textarea', array(
+<<<<<<< HEAD
                     'label'         => 'article.admin.article.articleSection.text',
+=======
+                    'label'                         => 'article.admin.article.articleSection.text',
+>>>>>>> release/0.0.3
                     'attr'          => array(
                         'class'         => 'tinymce',
                         'data-theme'    => 'advanced'
@@ -77,7 +81,7 @@ class ArticleType extends AbstractType
             )
 
             ->add('blogCategories', 'collection', array(
-                    'type'          => 'black_article_item',
+                    'type'          => 'black_article_category',
                     'label'         => 'article.admin.article.blogCategories.text',
                     'allow_add'     => true,
                     'allow_delete'  => true,

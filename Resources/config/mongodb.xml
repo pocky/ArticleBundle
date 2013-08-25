@@ -6,14 +6,21 @@
 
     <parameters>
         <parameter key="black_article.manager.article">%black_article.article.manager%</parameter>
+        <parameter key="black_article.manager.category">%black_article.category.manager%</parameter>
     </parameters>
 
     <services>
+        <service id="black_article.document.manager" alias="doctrine.odm.mongodb.document_manager" />
         <service id="black_article.document.manager" alias="doctrine.odm.mongodb.document_manager" />
 
         <service id="black_article.manager.article" class="%black_article.manager.article%">
             <argument type="service" id="black_article.document.manager" />
             <argument>%black_article.article.model.class%</argument>
+        </service>
+
+        <service id="black_article.manager.category" class="%black_article.manager.category%">
+            <argument type="service" id="black_article.document.manager" />
+            <argument>%black_article.category.model.class%</argument>
         </service>
     </services>
 </container>

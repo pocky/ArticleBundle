@@ -38,11 +38,15 @@ class Configuration implements ConfigurationInterface
 
                 ->scalarNode('article_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('item_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('category_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('article_manager')->defaultValue('Black\\Bundle\\ArticleBundle\\Doctrine\\ArticleManager')->end()
+                ->scalarNode('category_manager')->defaultValue('Black\\Bundle\\ArticleBundle\\Doctrine\\CategoryManager')->end()
+
             ->end();
 
         $this->addArticleSection($rootNode);
         $this->addProxySection($rootNode);
+        $this->addCategorySection($rootNode);
 
         return $treeBuilder;
     }
@@ -104,5 +108,36 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
+    }
+
+    /**
+     * @param ArrayNodeDefinition $node
+     */
+    private function addCategorySection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('category')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                        ->children()
+                            ->arrayNode('form')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('name')
+                                    ->defaultValue('black_category_form')
+                                ->end()
+                                    ->scalarNode('type')
+                                ->defaultValue('Black\\Bundle\\ArticleBundle\\Form\\Type\\CategoryType')
+                                    ->end()
+                                ->scalarNode('handler')
+                                    ->defaultValue('Black\\Bundle\\ArticleBundle\\Form\\Handler\\CategoryFormHandler')
+                                ->end()
+                            ->end()
+                        ->end()
+
+                    ->end()
+                ->end()
+            ->end();
     }
 }

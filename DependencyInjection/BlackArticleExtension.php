@@ -42,11 +42,21 @@ class BlackArticleExtension extends Extension
             $config,
             $container,
             array(
+<<<<<<< HEAD
                 ''      => array(
                     'db_driver'                 => 'black_article.db_driver',
                     'article_class'             => 'black_article.article.model.class',
                     'item_class'                => 'black_article.article.model.item_class',
                     'article_manager'           => 'black_article.article.manager',
+=======
+                ''  => array(
+                    'db_driver'         => 'black_article.db_driver',
+                    'article_class'     => 'black_article.article.model.class',
+                    'item_class'        => 'black_article.article.model.item_class',
+                    'category_class'    => 'black_article.category.model.class',
+                    'article_manager'   => 'black_article.article.manager',
+                    'category_manager'  => 'black_article.category.manager',
+>>>>>>> release/0.0.3
                 )
             )
         );
@@ -57,6 +67,10 @@ class BlackArticleExtension extends Extension
 
         if (!empty($config['proxy'])) {
             $this->loadProxy($config['proxy'], $container, $loader);
+        }
+
+        if (!empty($config['category'])) {
+            $this->loadCategory($config['category'], $container, $loader);
         }
     }
 
@@ -93,6 +107,27 @@ class BlackArticleExtension extends Extension
                 'proxy'  => 'black_article.proxy.%s',
             )
         );
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param XmlFileLoader    $loader
+     */
+    private function loadCategory(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    {
+        foreach (array('category') as $basename) {
+            $loader->load(sprintf('%s.xml', $basename));
+        }
+
+        $this->remapParametersNamespaces(
+            $config,
+            $container,
+            array(
+                'form'  => 'black_article.category.form.%s',
+            )
+        );
+
     }
 
     /**

@@ -13,7 +13,6 @@ namespace Black\Bundle\ArticleBundle\Doctrine;
 use Black\Bundle\ArticleBundle\Model\ArticleManagerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-
 /**
  * Class ArticleManager
  *
