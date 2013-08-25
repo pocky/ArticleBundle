@@ -4,7 +4,11 @@
 
     <div class="container">
 
-    {% include "BlackArticleBundle:Article:_article.html.twig" %}
+        {% include "BlackArticleBundle:Article:_article.html.twig" %}
+
+        <div class="row">
+            {% include 'BlackArticleBundle:Article:_pagerAuthor.html.twig' %}
+        </div>
 
     </div>
 {% endblock body %}

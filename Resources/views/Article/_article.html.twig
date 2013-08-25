@@ -11,7 +11,7 @@
 
         <div class="content" itemprop="{% if document.description %}description{% else %}articleSection{% endif %}">
             {% if document.description %}
-                {{ document.description }}
+                {{ document.description|raw }}
             {% else %}
                 {% autoescape false %}
                 {{ document.articleSection|striptags|truncate(240, false, '') }}
@@ -35,3 +35,5 @@
         {% trans from "views" %}article.www.index.no.results{% endtrans %}
     </div>
 {% endfor %}
+
+{% include 'BlackArticleBundle:Article:_pager.html.twig' %}

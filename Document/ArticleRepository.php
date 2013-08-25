@@ -129,9 +129,10 @@ class ArticleRepository extends DocumentRepository
     }
 
     /**
-     * @param      $status
+     * @param $status
      * @param null $limit
      * @return array|bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
+     * @throws \InvalidArgumentException
      */
     public function getArticles($status, $limit = null)
     {
@@ -143,6 +144,37 @@ class ArticleRepository extends DocumentRepository
         if ($limit) {
             $qb = $qb->limit($limit);
         }
+
+        $qb = $qb->getQuery();
+
+        return $qb->execute();
+    }
+
+    /**
+     * @param $status
+     * @param $limit
+     * @param $articlesPerPage
+     * @param $page
+     * @return array|bool|\Doctrine\MongoDB\ArrayIterator|\Doctrine\MongoDB\Cursor|\Doctrine\MongoDB\EagerCursor|mixed|null
+     * @throws \InvalidArgumentException
+     */
+    public function getArticlesPaginates($keys, $limit, $articlesPerPage, $page)
+    {
+        if ($page < 1) {
+            throw new \InvalidArgumentException();
+        }
+
+        $qb = $this->getQueryBuilder();
+
+        foreach ($keys as $key => $value) {
+            $qb = $qb->field($key)->equals($value);
+        }
+
+        $qb = $qb
+            ->sort('updatedAt', 'desc')
+            ->skip($articlesPerPage * ($page - 1))
+            ->limit($limit)
+        ;
 
         $qb = $qb->getQuery();
 
