@@ -1,0 +1,23 @@
+{% set route =  app.request.attributes.get('_route') %}
+
+{% if route is sameas(route|replace({'_paginate': ''})) %}
+    {% set route = route ~ "_paginate" %}
+{% endif %}
+
+<ul class="pager">
+    {% if page > 1 %}
+    <li>
+        <a href="{{ url(route, { page: (page - 1), keyword: keyword }, true) }}">
+            {% trans from "views" %}article.www.pager.previous{% endtrans %}
+        </a>
+    </li>
+    {% endif %}
+
+    {% if nextPage %}
+    <li>
+        <a href="{{ url(route, { page: nextPage, keyword: keyword }, true) }}">
+            {% trans from "views" %}article.www.pager.next{% endtrans %}
+        </a>
+    </li>
+    {% endif %}
+</ul>

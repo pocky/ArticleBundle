@@ -63,6 +63,10 @@ article:
       remove:
         text: Enlever
   www:
+    pager:
+      previous: Articles précédents
+      next: Articles suivants
+
     article:
       not:
         found:

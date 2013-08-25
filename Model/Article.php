@@ -150,6 +150,9 @@ abstract class Article implements ArticleInterface
     {
         $this->blogCategories   = new ArrayCollection();
         $this->keywords         = new ArrayCollection();
+
+        $this->enabled          = 'public';
+        $this->datePublished    = new \DateTime('now');
     }
 
     /**
