@@ -11,6 +11,30 @@ article:
         submit:
           value: Supprimer
 
+    category:
+      general:
+        text: Général
+      options:
+        text: Informations optionnelles
+      settings:
+        text: Propriétés
+      name:
+        text: Titre
+      slug:
+        text: Permalien
+      description:
+        text: Description
+      item:
+        choice:
+          other: Autre
+      submit:
+        value: Envoyer
+      content:
+        text: Informations
+      parent:
+        label: Parent
+        empty: Aucune (catégorie principale)
+
     item:
       name:
         text: Item

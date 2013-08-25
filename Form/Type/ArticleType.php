@@ -60,20 +60,24 @@ class ArticleType extends AbstractType
             )
             ->add('description', 'textarea', array(
                     'label'         => 'article.admin.article.description.text',
-                    'required'      => false
+                    'required'      => false,
+                    'attr'          => array(
+                        'class'         => 'tinymce',
+                        'data-theme'    => 'advanced'
+                    )
                 )
             )
-            ->add('articleSection', 'ckeditor', array(
+            ->add('articleSection', 'textarea', array(
                     'label'                         => 'article.admin.article.articleSection.text',
-                    'filebrowser_image_browse_url'  => array(
-                        'route'            => 'elfinder',
-                        'route_parameters' => array(),
-                    ),
+                    'attr'          => array(
+                        'class'         => 'tinymce',
+                        'data-theme'    => 'advanced'
+                    )
                 )
             )
 
             ->add('blogCategories', 'collection', array(
-                    'type'          => 'black_article_item',
+                    'type'          => 'black_article_category',
                     'label'         => 'article.admin.article.blogCategories.text',
                     'allow_add'     => true,
                     'allow_delete'  => true,
