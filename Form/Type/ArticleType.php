@@ -68,11 +68,7 @@ class ArticleType extends AbstractType
                 )
             )
             ->add('articleSection', 'textarea', array(
-<<<<<<< HEAD
                     'label'         => 'article.admin.article.articleSection.text',
-=======
-                    'label'                         => 'article.admin.article.articleSection.text',
->>>>>>> release/0.0.3
                     'attr'          => array(
                         'class'         => 'tinymce',
                         'data-theme'    => 'advanced'
