@@ -22,7 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
- * Controller managing the Articles`
+ * Class ArticleController
  *
  * @Route("/article")
  *
@@ -37,7 +37,7 @@ class ArticleController extends Controller
      * @Route("s.html", name="articles")
      * @Route("s/{page}.html", name="articles_paginate", requirements={"page" = "\d+"})
      * @Template()
-     * 
+     *
      * @param int $limit
      * @param int $articlesPerPage
      * @param int $page
@@ -161,7 +161,8 @@ class ArticleController extends Controller
             'documents'     => $documents,
             'page'          => $page,
             'nextPage'      => $nextPage,
-            'keyword'       => $keyword
+            'keyword'       => $keyword,
+            'count'         => $countArticles
         );
     }
 
@@ -169,11 +170,11 @@ class ArticleController extends Controller
      * Show article by slug
      *
      * @param string $slug
-     * 
+     *
      * @Method("GET")
      * @Route("/{slug}.html", name="article_show")
      * @Template()
-     * 
+     *
      * @return Template
      */
     public function showAction($slug)
@@ -190,13 +191,13 @@ class ArticleController extends Controller
 
     /**
      * Recent articles (embed action)
-     * 
+     *
      * @param integer $max
-     * 
+     *
      * @Method("GET")
      * @Route("s/recent/{max}", name="_articles_recent")
      * @Template()
-     * 
+     *
      * @return Template
      */
     public function recentArticlesAction($max = 3)
