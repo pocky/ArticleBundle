@@ -1,3 +1,23 @@
+admin:
+
+
+    adminConfig:
+        contentTop:
+            article:
+                title: Proprétés des articles
+
+        fieldset:
+            article:
+                title: Vos paramètres
+        whead:
+            article:
+                actions:
+                    text: Actions
+        body:
+            article:
+                submit:
+                    value: Mettre à jour
+
 article:
   admin:
     actions:
