@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Serializer\Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use JMS\SecurityExtraBundle\Annotation\Secure;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
@@ -36,7 +35,7 @@ class ArticleController extends Controller
      * index of Articles
      *
      * @Method("GET")
-     * @Route("s.html", name="articles")
+     * @Route("s.{_format}", name="articles", requirements={"_format" = "html|xml"})
      * @Route("s/{page}.html", name="articles_paginate", requirements={"page" = "\d+"})
      * @Template()
      *
@@ -49,8 +48,24 @@ class ArticleController extends Controller
         $articleManager     = $this->getArticleManager();
         $configManager      = $this->getConfigManger();
         $property           = $configManager->findPropertyByName('Article');
-        $articlesPerPage    = $property->getValue()['article_max'];
+        $format             = $this->get('request')->get('_format');
 
+        if ('xml' == $format) {
+
+            $data = $articleManager->findLastPublishedArticles($property->getValue()['article_rss']);
+
+            foreach ($data as $document) {
+                $documents[] = $document;
+            }
+
+            return array(
+                'channel'       => $configManager->findPropertyByName('General'),
+                'lastBuildDate' => $documents[0]->getDatePublished(),
+                'documents'     => $documents
+            );
+        }
+
+        $articlesPerPage    = $property->getValue()['article_max'];
         $countArticles  = $articleManager->getRepository()->findAll()->count();
         $maxPage        = ceil($countArticles / $articlesPerPage);
         $nextPage       = $maxPage > $page ? ($page + 1) : false;
