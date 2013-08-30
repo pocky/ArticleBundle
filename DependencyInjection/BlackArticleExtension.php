@@ -64,18 +64,24 @@ class BlackArticleExtension extends Extension
         if (!empty($config['category'])) {
             $this->loadCategory($config['category'], $container, $loader);
         }
+
+        if (!empty($config['config'])) {
+            $this->loadConfig($config['config'], $container, $loader);
+        }
     }
 
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param XmlFileLoader    $loader
+     */
     private function loadArticle(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
         foreach (array('article') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
-        $this->remapParametersNamespaces(
-            $config,
-            $container,
-            array(
+        $this->remapParametersNamespaces($config, $container, array(
                 'form'  => 'black_article.article.form.%s',
             )
         );
@@ -92,10 +98,7 @@ class BlackArticleExtension extends Extension
             $loader->load(sprintf('%s.xml', $basename));
         }
 
-        $this->remapParametersNamespaces(
-            $config,
-            $container,
-            array(
+        $this->remapParametersNamespaces($config, $container, array(
                 'proxy'  => 'black_article.proxy.%s',
             )
         );
@@ -112,14 +115,26 @@ class BlackArticleExtension extends Extension
             $loader->load(sprintf('%s.xml', $basename));
         }
 
-        $this->remapParametersNamespaces(
-            $config,
-            $container,
-            array(
+        $this->remapParametersNamespaces($config, $container, array(
                 'form'  => 'black_article.category.form.%s',
             )
         );
 
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param XmlFileLoader    $loader
+     */
+    private function loadConfig(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    {
+        $loader->load('config.xml');
+
+        $this->remapParametersNamespaces($config, $container, array(
+                'form' => 'black_article.config.form.%s',
+            )
+        );
     }
 
     /**

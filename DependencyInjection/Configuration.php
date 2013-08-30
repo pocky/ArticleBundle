@@ -47,6 +47,7 @@ class Configuration implements ConfigurationInterface
         $this->addArticleSection($rootNode);
         $this->addProxySection($rootNode);
         $this->addCategorySection($rootNode);
+        $this->addConfigSection($rootNode);
 
         return $treeBuilder;
     }
@@ -136,6 +137,36 @@ class Configuration implements ConfigurationInterface
                             ->end()
                         ->end()
 
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    /**
+     * @param ArrayNodeDefinition $node
+     */
+    private function addConfigSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('config')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                        ->children()
+                        ->arrayNode('form')
+                        ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('article_config_name')
+                                    ->defaultValue('black_article_config')
+                                ->end()
+                                ->scalarNode('article_config_type')
+                                    ->defaultValue('Black\\Bundle\\ArticleBundle\\Form\\Type\\ArticleConfigType')
+                                ->end()
+                                ->scalarNode('article_config_handler')
+                                    ->defaultValue('Black\\Bundle\\ConfigBundle\\Form\\Handler\\ConfigFormHandler')
+                                ->end()
+                            ->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end();

@@ -27,6 +27,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  * @Route("/article")
  *
  * @package Black\Bundle\ArticleBundle\Controller
+ * @author  Alexandre Balmes <albalmes@gmail.com>
+ * @license http://opensource.org/licenses/mit-license.php MIT
  */
 class ArticleController extends Controller
 {

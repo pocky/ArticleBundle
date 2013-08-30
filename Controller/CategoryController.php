@@ -21,9 +21,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
- * Controller managing the categories`
+ * Class CategoryController
  *
  * @Route("/category")
+ *
+ * @package Black\Bundle\ArticleBundle\Controller
+ * @author  Alexandre Balmes <albalmes@gmail.com>
+ * @license http://opensource.org/licenses/mit-license.php MIT
  */
 class CategoryController extends Controller
 {

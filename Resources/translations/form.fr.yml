@@ -1,3 +1,19 @@
+admin:
+    adminConfig:
+        article:
+            value:
+                label: Propriétés
+            protected:
+                label: Activer la protection des articles
+                empty: Choisir une valeur
+                choices:
+                    yes: Oui
+                    no: Non (conseillé)
+            rss:
+                label: Nombre d'articles dans le flux RSS
+            max:
+                label: Nombre d'articles affichés par page
+
 article:
   admin:
     actions:
