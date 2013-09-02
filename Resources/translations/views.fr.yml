@@ -18,6 +18,12 @@ admin:
                 submit:
                     value: Mettre à jour
 
+        sidebar:
+            article:
+                a:
+                    title: Gérer les paramètre de vos articles
+                    text: Paramètres des articles
+
 article:
   admin:
     actions:
