@@ -2,12 +2,12 @@ success:
   article:
     admin:
       article:
-        delete: La article a bien été supprimée.
-        edit: La article a bien été édité.
+        delete: L'article a bien été supprimée.
+        edit: L'article a bien été édité.
       category:
         delete: La categorie a bien été supprimée.
         edit: La categorie a bien été édité.
-  
+
 error:
   article:
     admin:
