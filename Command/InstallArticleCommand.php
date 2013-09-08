@@ -19,13 +19,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 
 /**
- * Class InstallConfigCommand
+ * Class InstallArticleCommand
  *
  * @package Black\Bundle\ArticleBundle\Command
  * @author  Alexandre Balmes <albalmes@gmail.com>
  * @license http://opensource.org/licenses/mit-license.php MIT
  */
-class InstallConfigCommand extends ContainerAwareCommand
+class InstallArticleCommand extends ContainerAwareCommand
 {
     /**
      *
@@ -38,8 +38,9 @@ class InstallConfigCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
+     * @return int|null|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
