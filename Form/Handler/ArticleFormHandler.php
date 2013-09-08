@@ -68,7 +68,7 @@ class ArticleFormHandler
 
             if ($this->form->isValid()) {
 
-                $this->setFlash('success', ' success.article.admin.article.edit');
+                $this->setFlash('success', 'success.article.admin.article.edit');
 
                 return true;
             } else {

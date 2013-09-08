@@ -210,9 +210,9 @@ class ArticleManager implements ArticleManagerInterface
      * @param $page
      * @return mixed
      */
-    public function findPublishedAndPaginateArticles($limit, $articlesPerPage, $page)
+    public function findPublishedAndPaginateArticles($articlesPerPage, $page)
     {
-        return $this->getRepository()->getArticlesPaginates(array('status' => 'publish'), $limit, $articlesPerPage, $page);
+        return $this->getRepository()->getArticlesPaginates(array('status' => 'publish'), $articlesPerPage, $page);
     }
 
     /**
@@ -231,9 +231,9 @@ class ArticleManager implements ArticleManagerInterface
      * @param $page
      * @return mixed
      */
-    public function findDraftedAndPaginateArticles($limit, $articlesPerPage, $page)
+    public function findDraftedAndPaginateArticles($articlesPerPage, $page)
     {
-        return $this->getRepository()->getArticlesPaginates(array('status' => 'draft'), $limit, $articlesPerPage, $page);
+        return $this->getRepository()->getArticlesPaginates(array('status' => 'draft'), $articlesPerPage, $page);
     }
 
     /**
@@ -255,12 +255,12 @@ class ArticleManager implements ArticleManagerInterface
      * @param $page
      * @return mixed
      */
-    public function findPublishedAndPaginateArticlesByAuthor($author, $limit, $articlesPerPage, $page, $status = 'publish')
+    public function findPublishedAndPaginateArticlesByAuthor($author, $articlesPerPage, $page, $status = 'publish')
     {
         return $this->getRepository()->getArticlesPaginates(array(
                 'author' => $author,
                 'status' => $status
-            ), $limit, $articlesPerPage, $page);
+            ), $articlesPerPage, $page);
     }
 
     /**
@@ -282,12 +282,12 @@ class ArticleManager implements ArticleManagerInterface
      * @param $page
      * @return mixed
      */
-    public function findPublishedAndPaginateArticlesByBlogCategory($blogCategory, $limit, $articlesPerPage, $page, $status = 'publish')
+    public function findPublishedAndPaginateArticlesByBlogCategory($blogCategory, $articlesPerPage, $page, $status = 'publish')
     {
         return $this->getRepository()->getArticlesPaginates(array(
                 'blogCategories.name'   => $blogCategory,
                 'status'                => $status
-            ), $limit, $articlesPerPage, $page);
+            ), $articlesPerPage, $page);
     }
 
     /**
@@ -309,11 +309,11 @@ class ArticleManager implements ArticleManagerInterface
      * @param $page
      * @return mixed
      */
-    public function findPublishedAndPaginateArticlesByKeyword($keyword, $limit, $articlesPerPage, $page, $status = 'publish')
+    public function findPublishedAndPaginateArticlesByKeyword($keyword, $articlesPerPage, $page, $status = 'publish')
     {
         return $this->getRepository()->getArticlesPaginates(array(
                 'keywords.name' => $keyword,
                 'status'        => $status
-            ), $limit, $articlesPerPage, $page);
+            ), $articlesPerPage, $page);
     }
 }

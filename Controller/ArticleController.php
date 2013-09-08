@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Serializer\Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use JMS\SecurityExtraBundle\Annotation\Secure;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
@@ -27,6 +26,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  * @Route("/article")
  *
  * @package Black\Bundle\ArticleBundle\Controller
+ * @author  Alexandre Balmes <albalmes@gmail.com>
+ * @license http://opensource.org/licenses/mit-license.php MIT
  */
 class ArticleController extends Controller
 {
@@ -34,24 +35,41 @@ class ArticleController extends Controller
      * index of Articles
      *
      * @Method("GET")
-     * @Route("s.html", name="articles")
+     * @Route("s.{_format}", name="articles", requirements={"_format" = "html|xml"})
      * @Route("s/{page}.html", name="articles_paginate", requirements={"page" = "\d+"})
      * @Template()
      *
-     * @param int $limit
-     * @param int $articlesPerPage
      * @param int $page
      *
      * @return array
      */
-    public function indexAction($limit = 1, $articlesPerPage = 1, $page = 1)
+    public function indexAction($page = 1)
     {
-        $articleManager = $this->getArticleManager();
+        $articleManager     = $this->getArticleManager();
+        $configManager      = $this->getConfigManger();
+        $property           = $configManager->findPropertyByName('Article');
+        $format             = $this->get('request')->get('_format');
 
+        if ('xml' == $format) {
+
+            $data = $articleManager->findLastPublishedArticles($property->getValue()['article_rss']);
+
+            foreach ($data as $document) {
+                $documents[] = $document;
+            }
+
+            return array(
+                'channel'       => $configManager->findPropertyByName('General'),
+                'lastBuildDate' => $documents[0]->getDatePublished(),
+                'documents'     => $documents
+            );
+        }
+
+        $articlesPerPage    = $property->getValue()['article_max'];
         $countArticles  = $articleManager->getRepository()->findAll()->count();
         $maxPage        = ceil($countArticles / $articlesPerPage);
         $nextPage       = $maxPage > $page ? ($page + 1) : false;
-        $documents      = $articleManager->findPublishedAndPaginateArticles($limit, $articlesPerPage, $page);
+        $documents      = $articleManager->findPublishedAndPaginateArticles($articlesPerPage, $page);
 
         return array(
             'documents' => $documents,
@@ -69,18 +87,19 @@ class ArticleController extends Controller
      * @Template()
      *
      * @param $author
-     * @param int $limit
-     * @param int $articlesPerPage
      * @param int $page
      *
      * @return array
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function authorAction($author, $limit = 1, $articlesPerPage = 1, $page = 1)
+    public function authorAction($author, $page = 1)
     {
-        $articleManager = $this->getArticleManager();
+        $articleManager     = $this->getArticleManager();
+        $configManager      = $this->getConfigManger();
+        $property           = $configManager->findPropertyByName('Article');
+        $articlesPerPage    = $property->getValue()['article_max'];
 
-        $documents      = $articleManager->findPublishedAndPaginateArticlesByAuthor($author, $limit, $articlesPerPage, $page);
+        $documents      = $articleManager->findPublishedAndPaginateArticlesByAuthor($author, $articlesPerPage, $page);
         $countArticles  = $documents->count();
         $maxPage        = ceil($countArticles / $articlesPerPage);
         $nextPage       = $maxPage > $page ? ($page + 1) : false;
@@ -102,24 +121,25 @@ class ArticleController extends Controller
      * @Template()
      *
      * @param $blogCategory
-     * @param int $limit
-     * @param int $articlesPerPage
      * @param int $page
      *
      * @return array
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function categoryAction($blogCategory, $limit = 1, $articlesPerPage = 1, $page = 1)
+    public function categoryAction($blogCategory, $page = 1)
     {
-        $categoryManager      = $this->getCategoryManager();
+        $categoryManager        = $this->getCategoryManager();
+        $configManager          = $this->getConfigManger();
+        $property               = $configManager->findPropertyByName('Article');
+        $articlesPerPage        = $property->getValue()['article_max'];
 
         if (!$blogCategory = $categoryManager->getRepository()->findOneBySlug($blogCategory)) {
             $this->createNotFoundException();
         }
 
         $documentManager    = $this->getArticleManager();
-        $documents          = $documentManager->findPublishedAndPaginateArticlesByBlogCategory($blogCategory, $limit, $articlesPerPage, $page);
+        $documents          = $documentManager->findPublishedAndPaginateArticlesByBlogCategory($blogCategory, $articlesPerPage, $page);
         $countArticles      = $documents->count();
         $maxPage            = ceil($countArticles / $articlesPerPage);
         $nextPage           = $maxPage > $page ? ($page + 1) : false;
@@ -141,18 +161,20 @@ class ArticleController extends Controller
      * @Template()
      *
      * @param $keyword
-     * @param int $limit
-     * @param int $articlesPerPage
      * @param int $page
      *
      * @return array
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function keywordAction($keyword, $limit = 1, $articlesPerPage = 1, $page = 1)
+    public function keywordAction($keyword, $page = 1)
     {
         $documentManager    = $this->getArticleManager();
-        $documents          = $documentManager->findPublishedAndPaginateArticlesByKeyword($keyword, $limit, $articlesPerPage, $page);
+        $configManager      = $this->getConfigManger();
+        $property           = $configManager->findPropertyByName('Article');
+        $articlesPerPage    = $property->getValue()['article_max'];
+
+        $documents          = $documentManager->findPublishedAndPaginateArticlesByKeyword($keyword, $articlesPerPage, $page);
         $countArticles      = $documents->count();
         $maxPage            = ceil($countArticles / $articlesPerPage);
         $nextPage           = $maxPage > $page ? ($page + 1) : false;
@@ -203,7 +225,7 @@ class ArticleController extends Controller
     public function recentArticlesAction($max = 3)
     {
         $documentManager    = $this->getArticleManager();
-        $documents = $documentManager->findLastPublishedArticles($max);
+        $documents          = $documentManager->findLastPublishedArticles($max);
 
         return array(
             'documents' => $documents,
@@ -218,6 +240,14 @@ class ArticleController extends Controller
     protected function getArticleManager()
     {
         return $this->get('black_article.manager.article');
+    }
+
+    /**
+     * @return object
+     */
+    protected function getConfigManger()
+    {
+        return $this->get('black_config.manager.config');
     }
 
     /**

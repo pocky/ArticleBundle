@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<rss version="2.0">
+    <channel>
+        <title>{{ channel.value.site_name }}</title>
+        <description>{{ channel.value.site_baseline }}</description>
+        <lastBuildDate>{{ lastBuildDate|date("r") }}</lastBuildDate>
+        <link>{{ url('blog_index', {}, true) }}</link>
+
+{% block rss %}
+
+    {% for document in documents %}
+
+        <item>
+            <title>{{ document.name }}</title>
+            <link href="{{ url('article_show', {"slug": document.slug}, true) }}"/>
+            <pubDate>2010-04-01T18:30:02Z</pubDate>
+            <description>
+                {% if document.description %}
+                    {{ document.description }}
+                {% else %}
+                    {{ document.articleSection }}
+                {% endif %}
+            </description>
+        </item>
+
+    {% endfor %}
+
+{% endblock %}
+    </channel>
+</rss>
