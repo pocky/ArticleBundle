@@ -45,6 +45,8 @@ class CategoryController extends Controller
         $documentManager    = $this->getManager();
         $documentRepository = $documentManager->getRepository();
 
+        $tree = array();
+
         $tree = $documentRepository->childrenHierarchy(null, false, array(
                 'decorate'  => true,
                 'representationField' => 'slug',
@@ -63,10 +65,6 @@ class CategoryController extends Controller
                     return '<a href="/articles/category/'.$node['slug'].'.html">'.$node['slug'].'</a>';
                 }
             ));
-
-        if (!$tree) {
-            $tree = array('items' => array());
-        }
 
         return array(
             'document' => $tree,
