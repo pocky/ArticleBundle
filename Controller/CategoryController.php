@@ -52,17 +52,17 @@ class CategoryController extends Controller
                 'representationField' => 'slug',
                 'html'  => true,
                 'rootOpen' => function($tree) {
-                    if(count($tree) && ($tree[0]['level'] == 1)){
+                    if (count($tree) && ($tree[0]['level'] == 1)) {
                         return '<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">';
                     }
                 },
                 'rootClose' => function($child) {
-                    if(count($child) && ($child[0]['level'] == 1)){
+                    if (count($child) && ($child[0]['level'] == 1)) {
                         return '</ul>';
                     }
                 },
                 'nodeDecorator' => function($node) use (&$controller) {
-                    return '<a href="/articles/category/'.$node['slug'].'.html">'.$node['slug'].'</a>';
+                    return '<a href="/articles/category/'.$node['name'].'.html">'.$node['name'].'</a>';
                 }
             ));
 
