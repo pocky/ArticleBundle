@@ -120,7 +120,7 @@ class ArticleProxy implements ProxyInterface
         $response = $this->getResponse();
 
         if ('prod' === $this->getKernel()->getEnvironment()) {
-            $response->setEtag($object->computeEtag());
+            //$response->setETag($object->computeETag());
             $response->setLastModified($object->getUpdatedAt());
             $response->setPublic();
         }
