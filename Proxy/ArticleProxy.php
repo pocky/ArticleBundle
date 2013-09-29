@@ -53,14 +53,20 @@ class ArticleProxy implements ProxyInterface
     protected $kernel;
 
     /**
+     * @var \Black\Bundle\SeoBundle\Model\SeoInterface
+     */
+    protected $seo;
+
+    /**
      * @param ArticleManagerInterface $manager
      * @param SecurityContext      $context
      * @param Request              $request
      * @param Kernel               $kernel
      */
-    public function __construct(ArticleManagerInterface $manager, SecurityContext $context, Request $request, Kernel $kernel)
+    public function __construct(ArticleManagerInterface $manager, SeoInterface $seo, SecurityContext $context, Request $request, Kernel $kernel)
     {
-        $this->manager = $manager;
+        $this->manager  = $manager;
+        $this->seo      = $seo;
         $this->context  = $context;
         $this->request  = $request;
         $this->kernel   = $kernel;
@@ -85,6 +91,7 @@ class ArticleProxy implements ProxyInterface
             throw new NotFoundHttpException('Requested article not found.');
         }
 
+        $this->formatSeo($object);
         $response = $this->prepareResponse($object);
 
         if ($response->isNotModified($this->getRequest())) {
@@ -112,6 +119,29 @@ class ArticleProxy implements ProxyInterface
 
     /**
      * @param Object $object
+     */
+    protected function formatSeo($object)
+    {
+        if ($this->getSeo()) {
+            $seo = $this->getSeo();
+
+            if ($object->getSeo()->getTitle()) {
+                $seo->setTitle($object->getSeo()->getTitle());
+            }
+
+            if ($object->getSeo()->getDescription()) {
+                $seo->setDescription($object->getSeo()->getDescription());
+            }
+
+            if ($object->getSeo()->getKeywords()) {
+                $seo->setKeywords($object->getSeo()->getKeywords());
+            }
+        }
+
+    }
+
+    /**
+     * @param Object $object
      *
      * @return Response
      */
@@ -120,7 +150,7 @@ class ArticleProxy implements ProxyInterface
         $response = $this->getResponse();
 
         if ('prod' === $this->getKernel()->getEnvironment()) {
-            $response->setEtag($object->computeEtag());
+            $response->setETag($object->computeETag());
             $response->setLastModified($object->getUpdatedAt());
             $response->setPublic();
         }
@@ -183,6 +213,14 @@ class ArticleProxy implements ProxyInterface
     private function getContext()
     {
         return $this->context;
+    }
+
+    /**
+     * @return SeoInterface
+     */
+    private function getSeo()
+    {
+        return $this->seo;
     }
 
     /**

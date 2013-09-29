@@ -896,4 +896,12 @@ abstract class Article implements ArticleInterface
 
         return false;
     }
+
+    /**
+     * @return string
+     */
+    public function computeETag()
+    {
+        return md5($this->getArticleSection());
+    }
 }

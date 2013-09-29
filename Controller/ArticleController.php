@@ -72,6 +72,7 @@ class ArticleController extends Controller
         $documents      = $articleManager->findPublishedAndPaginateArticles($articlesPerPage, $page);
 
         return array(
+            'count'     => $countArticles,
             'documents' => $documents,
             'page'      => $page,
             'nextPage'  => $nextPage
@@ -105,6 +106,7 @@ class ArticleController extends Controller
         $nextPage       = $maxPage > $page ? ($page + 1) : false;
 
         return array(
+            'count'     => $countArticles,
             'documents' => $documents,
             'page'      => $page,
             'nextPage'  => $nextPage,
@@ -145,6 +147,7 @@ class ArticleController extends Controller
         $nextPage           = $maxPage > $page ? ($page + 1) : false;
 
         return array(
+            'count'         => $countArticles,
             'documents'     => $documents,
             'page'          => $page,
             'nextPage'      => $nextPage,
